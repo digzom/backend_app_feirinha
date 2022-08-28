@@ -7,6 +7,8 @@ defmodule BackendAppFeirinhaWeb.Router do
 
   scope "/api", BackendAppFeirinhaWeb do
     pipe_through :api
+
+    resources "/products", ProductController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
