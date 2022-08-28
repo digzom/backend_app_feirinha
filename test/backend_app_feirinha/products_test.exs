@@ -8,7 +8,7 @@ defmodule BackendAppFeirinha.ProductsTest do
 
     import BackendAppFeirinha.ProductsFixtures
 
-    @invalid_attrs %{}
+    @invalid_attrs %{name: nil, description: nil, category: "Limpeza"}
 
     test "list_products/0 returns all products" do
       product = product_fixture()
@@ -21,7 +21,11 @@ defmodule BackendAppFeirinha.ProductsTest do
     end
 
     test "create_product/1 with valid data creates a product" do
-      valid_attrs = %{}
+      valid_attrs = %{
+        name: "Desinfetante",
+        description: "Bom para louças.",
+        category: ["Limpeza", "Cozinha"]
+      }
 
       assert {:ok, %Product{} = product} = Products.create_product(valid_attrs)
     end
@@ -32,7 +36,12 @@ defmodule BackendAppFeirinha.ProductsTest do
 
     test "update_product/2 with valid data updates the product" do
       product = product_fixture()
-      update_attrs = %{}
+
+      update_attrs = %{
+        name: "Desinfetante",
+        description: "Bom para louças.",
+        category: ["Limpeza", "Cozinha"]
+      }
 
       assert {:ok, %Product{} = product} = Products.update_product(product, update_attrs)
     end
