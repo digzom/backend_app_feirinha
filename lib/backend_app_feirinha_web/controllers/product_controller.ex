@@ -11,7 +11,7 @@ defmodule BackendAppFeirinhaWeb.ProductController do
     render(conn, "index.json", products: products)
   end
 
-  def create(conn, %{"product" => product_params}) do
+  def create(conn, product_params) do
     with {:ok, %Product{} = product} <- Products.create_product(product_params) do
       conn
       |> put_status(:created)
@@ -25,7 +25,7 @@ defmodule BackendAppFeirinhaWeb.ProductController do
     render(conn, "show.json", product: product)
   end
 
-  def update(conn, %{"id" => id, "product" => product_params}) do
+  def update(conn, %{"id" => id} = product_params) do
     product = Products.get_product!(id)
 
     with {:ok, %Product{} = product} <- Products.update_product(product, product_params) do
