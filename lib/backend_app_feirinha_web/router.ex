@@ -5,10 +5,22 @@ defmodule BackendAppFeirinhaWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug BackendAppFeirinhaWeb.Auth.Pipeline
+  end
+
   scope "/api", BackendAppFeirinhaWeb do
     pipe_through :api
 
+    post "/users", UserController, :create
+    post "/users/signin", UserController, :sign_in
+  end
+
+  scope "/api", BackendAppFeirinhaWeb do
+    pipe_through [:api, :auth]
+
     resources "/products", ProductController, except: [:new, :edit]
+    resources "/users", UserController, only: [:show, :delete, :update]
   end
 
   # Enables LiveDashboard only for development
