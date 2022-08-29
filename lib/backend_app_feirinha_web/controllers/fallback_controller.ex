@@ -20,4 +20,11 @@ defmodule BackendAppFeirinhaWeb.FallbackController do
     |> put_view(BackendAppFeirinhaWeb.ErrorView)
     |> render(:"422")
   end
+
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(BackendAppFeirinhaWeb.ErrorView)
+    |> render(:"401")
+  end
 end
