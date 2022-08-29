@@ -1,17 +1,22 @@
 defmodule BackendAppFeirinha.ListItems.ListItem do
   use Ecto.Schema
-  # use BackendAppFeirinha.Lists.List
   import Ecto.Changeset
+  alias BackendAppFeirinha.Lists.List
+  alias BackendAppFeirinha.Products.Product
 
-  @fields [:qtd, :integer]
   schema "list_item" do
+    field :item_qtd, :integer
+    field :brand, :string
+    belongs_to :list, List
+    belongs_to :product, Product
+
     timestamps()
   end
 
   @doc false
   def changeset(list_item, attrs) do
     list_item
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:item_qtd, :brand])
+    |> validate_required([:item_qtd])
   end
 end
