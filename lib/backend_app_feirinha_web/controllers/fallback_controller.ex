@@ -14,7 +14,9 @@ defmodule BackendAppFeirinhaWeb.FallbackController do
     |> render(:"404")
   end
 
-  def call(conn, {:error, %Ecto.Changeset{}}) do
+  def call(conn, {:error, %Ecto.Changeset{}} = error) do
+    IO.inspect(error)
+
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(BackendAppFeirinhaWeb.ErrorView)
