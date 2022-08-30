@@ -13,8 +13,6 @@ defmodule BackendAppFeirinha.ListItems.ListItem do
     timestamps()
   end
 
-  #
-
   @doc false
   def changeset(list_item, attrs) do
     list_item

@@ -11,7 +11,10 @@ defmodule BackendAppFeirinha.ListItemsFixtures do
     {:ok, list_item} =
       attrs
       |> Enum.into(%{
-
+        item_qtd: 4,
+        brand: "Limpol",
+        product_id: "bf0d17de-d600-46a2-a02d-57d8bacd1191",
+        list_id: 2
       })
       |> BackendAppFeirinha.ListItems.create_list_item()
 
