@@ -32,3 +32,4 @@ backend_app_feirinha-*.tar
 npm-debug.log
 /assets/node_modules/
 
+.env
