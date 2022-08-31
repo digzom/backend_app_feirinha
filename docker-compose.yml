@@ -11,6 +11,7 @@ services:
       PGHOST: db
       GUARDIAN_SECRET_KEY: ${GUARDIAN_SECRET_KEY}
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      DATABASE_URL: ${DATABASE_URL}
       PGPORT: 5432
     ports:
       - 4000:4000
