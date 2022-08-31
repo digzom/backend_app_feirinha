@@ -21,6 +21,10 @@ defmodule BackendAppFeirinhaWeb.Router do
 
     resources "/products", ProductController, except: [:new, :edit]
     resources "/users", UserController, only: [:show, :delete, :update]
+
+    resources "/lists", ListController, except: [:new, :edit] do
+      post "/list_item", ListController, :add_item
+    end
   end
 
   # Enables LiveDashboard only for development

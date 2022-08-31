@@ -29,4 +29,11 @@ defmodule BackendAppFeirinhaWeb.FallbackController do
     |> put_view(BackendAppFeirinhaWeb.ErrorView)
     |> render(:"401")
   end
+
+  # def call(conn, {:error, error})
+  # IO.inspect(error)
+
+  # conn
+  # |> put_status(500)
+  # |> put_view(BackendAppFeirinhaWeb.ErrorView)
 end
