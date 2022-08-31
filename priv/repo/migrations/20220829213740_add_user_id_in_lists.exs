@@ -3,7 +3,7 @@ defmodule BackendAppFeirinha.Repo.Migrations.AddUserIdInLists do
 
   def change do
     alter table(:list, primary_key: false) do
-      add(:user_id, references(:users, type: :uuid))
+      add(:users_id, references(:users, type: :uuid))
     end
   end
 end

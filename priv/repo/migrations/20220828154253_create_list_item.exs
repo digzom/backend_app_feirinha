@@ -6,7 +6,7 @@ defmodule BackendAppFeirinha.Repo.Migrations.CreateListItem do
       add(:item_qtd, :integer)
       add(:brand, :string)
       add(:product_id, references(:products))
-      add(:list_id, references(:list))
+      add(:list_id, references(:list, type: :uuid))
 
       timestamps()
     end
