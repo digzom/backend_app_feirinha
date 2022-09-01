@@ -10,21 +10,18 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :backend_app_feirinha, BackendAppFeirinhaWeb.Endpoint,
+  load_from_system_env: true,
   server: true,
   http: [port: {:system, "PORT"}],
   url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 443],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   check_origin: ["https://" <> System.get_env("APP_NAME") <> ".gigalixirapp.com"]
-  # force_ssl: [hsts: true],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  root: ".",
+  version: Mix.Project.config()[:version]
 
 # Do not print debug messages in production
 config :logger, level: :info
-
-config :backend_app_feirinha, BackendAppFeirinhaWeb.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  url: System.get_env("DATABASE_URL"),
-  ssl: true,
-  pool_size: 1
 
 # ## SSL Support
 #
