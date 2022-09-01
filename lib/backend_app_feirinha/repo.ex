@@ -3,7 +3,7 @@ defmodule BackendAppFeirinha.Repo do
     otp_app: :backend_app_feirinha,
     adapter: Ecto.Adapters.Postgres
 
-  if System.get_env("MIX_ENV") == :prod do
+  if System.get_env("MIX_ENV") == :dev do
     def init(_, config) do
       config =
         config
