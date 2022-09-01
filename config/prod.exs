@@ -23,7 +23,7 @@ config :logger, level: :info
 config :backend_app_feirinha, BackendAppFeirinhaWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
-  ssl: false,
+  ssl: true,
   pool_size: 1
 
 # ## SSL Support
