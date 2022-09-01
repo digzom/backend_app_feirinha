@@ -11,8 +11,8 @@ import Config
 # before starting your production server.
 config :backend_app_feirinha, BackendAppFeirinhaWeb.Endpoint,
   server: true,
-  force_ssl: [hsts: true],
-  url: [host: "db", port: 443]
+  # force_ssl: [hsts: true],
+  # url: [host: "db", port: 443]
 
 # Do not print debug messages in production
 config :logger, level: :info
