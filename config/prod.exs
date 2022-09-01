@@ -20,7 +20,7 @@ config :backend_app_feirinha, BackendAppFeirinhaWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :collaborlist, Collaborlist.Repo,
+config :backend_app_feirinha, BackendAppFeirinhaWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
   ssl: true,
