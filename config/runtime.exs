@@ -55,7 +55,9 @@ if config_env() == :prod do
 
   config :backend_app_feirinha, BackendAppFeirinhaWeb.Endpoint,
     url: [host: host, port: 443],
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+    ssl: true,
+    server: true,
+    http: [ip: {127, 0, 0, 1}, port: 4000],
     secret_key_base: secret_key_base
 
   # ## Configuring the mailer
