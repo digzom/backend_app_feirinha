@@ -15,8 +15,8 @@ config :backend_app_feirinha, BackendAppFeirinhaWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: BackendAppFeirinhaWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: BackendAppFeirinha.PubSub,
-  live_view: [signing_salt: "Q+fqFadv"],
-  secret_key_base: System.fetch_env("SECRET_KEY_BASE")
+  live_view: [signing_salt: "Q+fqFadv"]
+  # secret_key_base: System.fetch_env("SECRET_KEY_BASE")
 
 # Configures the mailer
 #
