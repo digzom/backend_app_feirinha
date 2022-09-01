@@ -4,7 +4,7 @@ import Config
 config :backend_app_feirinha, BackendAppFeirinha.Repo,
   username: "general_admin",
   password: "admin",
-  hostname: "db",
+  hostname: "localhost",
   database: "backend_app_feirinha_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
