@@ -10,7 +10,7 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :backend_app_feirinha, BackendAppFeirinhaWeb.Endpoint,
-  server: true,
+  server: true
   # force_ssl: [hsts: true],
   # url: [host: "db", port: 443]
 
