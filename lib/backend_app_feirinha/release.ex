@@ -23,6 +23,7 @@ defmodule BackendAppFeirinha.Release do
   end
 
   defp load_app do
+    Application.ensure_all_started(@app)
     Application.load(@app)
   end
 end
