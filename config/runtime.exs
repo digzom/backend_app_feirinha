@@ -57,7 +57,7 @@ if config_env() == :prod do
     url: [host: host, port: 443],
     ssl: true,
     server: true,
-    http: [ip: {127, 0, 0, 1}, port: 4000],
+    http: [port: {:system, "PORT"}],
     secret_key_base: secret_key_base
 
   # ## Configuring the mailer
