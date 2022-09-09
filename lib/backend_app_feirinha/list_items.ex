@@ -18,7 +18,7 @@ defmodule BackendAppFeirinha.ListItems do
 
   """
   def list_list_item do
-    Repo.all(ListItem)
+    Repo.all(ListItem) |> Repo.preload([:list, :product])
   end
 
   @doc """

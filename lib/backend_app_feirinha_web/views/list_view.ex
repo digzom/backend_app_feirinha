@@ -11,9 +11,27 @@ defmodule BackendAppFeirinhaWeb.ListView do
   end
 
   def render("list.json", %{list: list}) do
+    list_item =
+      Enum.map(
+        list.list_item,
+        fn item ->
+          %{
+            id: item.id,
+            brand: item.brand,
+            itemQtd: item.item_qtd,
+            name: item.product.name,
+            productId: item.product_id,
+            category: Enum.map(item.product.category, & &1),
+            description: item.product.description
+          }
+        end
+      )
+
     %{
       id: list.id,
-      name: list.name
+      name: list.name,
+      insertedAt: list.inserted_at,
+      listItems: list_item
     }
   end
 

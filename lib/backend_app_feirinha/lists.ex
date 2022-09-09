@@ -5,11 +5,9 @@ defmodule BackendAppFeirinha.Lists do
   alias BackendAppFeirinha.Lists.List
   alias BackendAppFeirinha.ListItems
 
-  def list_list do
-    Repo.all(List)
-  end
+  def list_list, do: Repo.all(List) |> Repo.preload([:users, list_item: [:list, :product]])
 
-  def get_list!(id), do: Repo.get!(List, id) |> Repo.preload([:users])
+  def get_list!(id), do: Repo.get!(List, id) |> Repo.preload([:users, :list_item])
 
   def create_list(attrs \\ %{}) do
     %List{}
