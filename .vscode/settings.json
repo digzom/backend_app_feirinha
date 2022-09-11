@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "feirinha",
+      "database": "backend_app_feirinha_dev",
+      "username": "general_admin",
+      "password": "admin"
+    }
+  ]
+}
