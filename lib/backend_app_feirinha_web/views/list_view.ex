@@ -38,4 +38,7 @@ defmodule BackendAppFeirinhaWeb.ListView do
   def render("add_item.json", %{list: list}) do
     IO.inspect(list)
   end
+
+  defp build_list_item() do
+  end
 end

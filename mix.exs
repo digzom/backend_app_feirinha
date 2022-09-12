@@ -5,7 +5,7 @@ defmodule BackendAppFeirinha.MixProject do
     [
       app: :backend_app_feirinha,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -46,7 +46,9 @@ defmodule BackendAppFeirinha.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:argon2_elixir, "~> 3.0"},
-      {:guardian, "~> 2.0"}
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:guardian, "~> 2.0"},
+      {:wallaby, "~> 0.30.0", runtime: false, only: :test}
     ]
   end
 

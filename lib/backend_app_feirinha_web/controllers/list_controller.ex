@@ -13,8 +13,6 @@ defmodule BackendAppFeirinhaWeb.ListController do
   end
 
   def create(conn, list_params) do
-    IO.inspect(list_params, label: "List")
-
     with {:ok, %List{} = list} <- Lists.create_list(list_params) do
       conn
       |> put_status(:created)

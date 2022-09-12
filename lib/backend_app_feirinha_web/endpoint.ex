@@ -1,6 +1,12 @@
 defmodule BackendAppFeirinhaWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :backend_app_feirinha
 
+  if Application.get_env(:backend_app_feirinha, :sql_sandbox) do
+    # enable concurrent tests without mutating shared
+    # database state across different tests
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
+
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.

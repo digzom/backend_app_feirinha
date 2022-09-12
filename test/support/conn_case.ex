@@ -17,6 +17,15 @@ defmodule BackendAppFeirinhaWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  @default_opts [
+    store: :cookie,
+    key: "secretkey",
+    encryption_salt: "encrypted cookie salt",
+    signing_salt: "signing salt"
+  ]
+
+  @signing_opts Plug.Session.init(Keyword.put(@default_opts, :encrypt, false))
+
   using do
     quote do
       # Import conveniences for testing with connections
@@ -32,7 +41,31 @@ defmodule BackendAppFeirinhaWeb.ConnCase do
   end
 
   setup tags do
+    # :ok = Ecto.Adapters.SQL.Sandbox.checkout(BackendAppFeirinha.Repo)
     BackendAppFeirinha.DataCase.setup_sandbox(tags)
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    conn = Phoenix.ConnTest.build_conn()
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(BackendAppFeirinha.Repo, {:shared, self()})
+    end
+
+    if tags[:authenticated] do
+      {:ok, user} =
+        BackendAppFeirinha.Users.create_user(%{
+          name: "Dickson",
+          password: "123456",
+          email: "dickson@email.com"
+        })
+
+      conn =
+        conn
+        |> Plug.Session.call(@signing_opts)
+        |> Plug.Conn.fetch_session()
+        |> Guardian.Plug.sign_in(BackendAppFeirinhaWeb.Auth.Guardian, user)
+
+      {:ok, conn: conn, user: user}
+    else
+      {:ok, conn: conn, user: nil}
+    end
   end
 end
