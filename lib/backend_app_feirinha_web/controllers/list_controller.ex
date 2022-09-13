@@ -3,6 +3,7 @@ defmodule BackendAppFeirinhaWeb.ListController do
 
   alias BackendAppFeirinha.Lists
   alias BackendAppFeirinha.Lists.List
+  alias BackendAppFeirinha.ListItems
   alias BackendAppFeirinha.Repo
 
   action_fallback BackendAppFeirinhaWeb.FallbackController
@@ -43,9 +44,12 @@ defmodule BackendAppFeirinhaWeb.ListController do
   end
 
   def add_item(conn, %{"list_id" => list_id} = list_item_params) do
+    ListItems.create_list_item(list_item_params)
+
     list =
       list_id
       |> Lists.get_list!()
-      |> Repo.preload([:list_item])
+
+    render(conn, "show_list_item.json", list: list)
   end
 end

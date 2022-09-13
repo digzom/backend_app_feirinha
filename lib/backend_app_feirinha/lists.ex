@@ -5,10 +5,10 @@ defmodule BackendAppFeirinha.Lists do
   alias BackendAppFeirinha.Lists.List
   alias BackendAppFeirinha.ListItems
 
-  def list_list, do: Repo.all(List) |> Repo.preload([:users])
+  def list_list, do: Repo.all(List) |> Repo.preload([:users, list_item: [:list, :product]])
 
   @spec get_list!(any) :: nil | [%{optional(atom) => any}] | %{optional(atom) => any}
-  def get_list!(id), do: Repo.get!(List, id) |> Repo.preload([:users, :list_item])
+  def get_list!(id), do: Repo.get!(List, id) |> Repo.preload([:users, list_item: :product])
 
   def create_list(attrs \\ %{}) do
     %List{}

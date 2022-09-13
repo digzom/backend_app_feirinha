@@ -11,27 +11,11 @@ defmodule BackendAppFeirinhaWeb.ListView do
   end
 
   def render("list.json", %{list: list}) do
-    list_item =
-      Enum.map(
-        list.list_item,
-        fn item ->
-          %{
-            id: item.id,
-            brand: item.brand,
-            itemQtd: item.item_qtd,
-            name: item.product.name,
-            productId: item.product_id,
-            category: Enum.map(item.product.category, & &1),
-            description: item.product.description
-          }
-        end
-      )
-
     %{
       id: list.id,
       name: list.name,
       insertedAt: list.inserted_at,
-      listItems: list_item
+      listItems: build_list_item(list)
     }
   end
 
@@ -39,6 +23,26 @@ defmodule BackendAppFeirinhaWeb.ListView do
     IO.inspect(list)
   end
 
-  defp build_list_item() do
+  def render("show_list_item.json", %{list: list}) do
+    render_one(list, ListView, "list.json")
+  end
+
+  def build_list_item(list) when not is_list(list.list_item), do: []
+
+  def build_list_item(list) do
+    Enum.map(
+      list.list_item,
+      fn item ->
+        %{
+          id: item.id,
+          brand: item.brand,
+          itemQtd: item.item_qtd,
+          name: item.product.name,
+          productId: item.product_id,
+          category: Enum.map(item.product.category, & &1),
+          description: item.product.description
+        }
+      end
+    )
   end
 end
