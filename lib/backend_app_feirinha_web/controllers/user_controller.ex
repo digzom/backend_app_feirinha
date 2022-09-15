@@ -22,12 +22,14 @@ defmodule BackendAppFeirinhaWeb.UserController do
     end
   end
 
-  def sign_in(conn, params) do
+  def sign_in(conn, %{"email" => email} = params) do
+    user = Users.get_user_by_email(email)
+
     with {:ok, token} <-
            Guardian.authenticate(params) do
       conn
       |> put_status(:ok)
-      |> render("sign_in.json", token: token)
+      |> render("sign_in.json", %{token: token, user: user})
     end
   end
 

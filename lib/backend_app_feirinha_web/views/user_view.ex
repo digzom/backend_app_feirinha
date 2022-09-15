@@ -3,11 +3,11 @@ defmodule BackendAppFeirinhaWeb.UserView do
   alias BackendAppFeirinhaWeb.UserView
 
   def render("index.json", %{users: users, token: token}) do
-    %{data: render_many(%{users: users, token: token}, UserView, "user.json")}
+    render_many(%{users: users, token: token}, UserView, "user.json")
   end
 
   def render("show.json", %{user: user, token: token}) do
-    %{data: render_one(%{user: user, token: token}, UserView, "user.json")}
+    render_one(%{user: user, token: token}, UserView, "user.json")
   end
 
   def render("user.json", %{user: %{user: user, token: token}}) do
@@ -22,7 +22,14 @@ defmodule BackendAppFeirinhaWeb.UserView do
     }
   end
 
-  def render("sign_in.json", %{token: token}) do
-    %{token: token}
+  def render("sign_in.json", %{token: token, user: user}) do
+    %{
+      token: token,
+      user: %{
+        name: user.name,
+        id: user.id,
+        email: user.email
+      }
+    }
   end
 end
