@@ -65,7 +65,7 @@ defmodule BackendAppFeirinhaWeb.ConnCase do
 
       {:ok, conn: conn, user: user}
     else
-      {:ok, conn: conn, user: nil}
+      {:ok, conn: conn}
     end
   end
 end
