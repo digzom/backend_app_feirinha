@@ -12,9 +12,8 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
   }
   @update_attrs %{
     email: "some updated email",
-    id: "7488a646-e31f-11e4-aace-600308960668",
     name: "some updated name",
-    password_hash: "some updated password_hash"
+    password: "some password"
   }
   @invalid_attrs %{email: nil, id: nil, name: nil, password_hash: nil}
 
@@ -38,20 +37,15 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
     setup [:create_user]
 
     @tag :authenticated
-    test "renders a updated user when data is valid", %{conn: conn, user: %User{id: id} = user} do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
+    test "returns 200 when updates a user when data is valid", %{
+      conn: conn,
+      user: %User{id: id}
+    } do
+      conn = put(conn, Routes.user_path(conn, :update, id), %{user: @update_attrs})
       assert %{"id" => ^id} = json_response(conn, 200)["user"]
-
-      # conn = get(conn, Routes.user_path(conn, :show, id))
-
-      # assert %{
-      #          "id" => ^id,
-      #          "email" => "some updated email",
-      #          "name" => "some updated name",
-      #          "password_hash" => "some updated password_hash"
-      #        } = json_response(conn, 200)["data"]
     end
 
+    @tag :authenticated
     test "renders errors when data is invalid", %{conn: conn, user: user} do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}

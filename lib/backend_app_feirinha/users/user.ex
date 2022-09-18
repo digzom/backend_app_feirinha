@@ -1,6 +1,7 @@
 defmodule BackendAppFeirinha.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias BackendAppFeirinha.Users.User
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   @fields [:name, :password, :email]
@@ -19,6 +20,15 @@ defmodule BackendAppFeirinha.Users.User do
     user
     |> cast(attrs, @fields)
     |> validate_required(@fields)
+    |> unique_constraint(:email)
+    |> validate_length(:password, min: 6)
+    |> encrypt_password()
+  end
+
+  def update_user_changeset(user, attrs) do
+    user
+    |> cast(attrs, @fields)
+    |> validate_required([:id])
     |> unique_constraint(:email)
     |> validate_length(:password, min: 6)
     |> encrypt_password()
