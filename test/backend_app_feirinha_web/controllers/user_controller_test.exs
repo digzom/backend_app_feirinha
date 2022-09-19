@@ -6,6 +6,10 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
   alias BackendAppFeirinha.Users.User
   alias BackendAppFeirinha.Repo
 
+  @sign_in_attrs %{
+    email: "dickson@email.com",
+    password: "1234567"
+  }
   @create_attrs %{
     email: "some email",
     name: "some name",
@@ -66,5 +70,14 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
   defp create_user(_) do
     user = user_fixture()
     %{user: user}
+  end
+
+  describe "Sign in" do
+    setup [:create_user]
+
+    test "sign in a user with valid data", %{conn: conn} do
+      conn = post(conn, Routes.user_path(conn, :sign_in), @sign_in_attrs)
+      assert %{"token" => token} = json_response(conn, 200)
+    end
   end
 end
