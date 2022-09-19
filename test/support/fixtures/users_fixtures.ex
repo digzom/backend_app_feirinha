@@ -11,10 +11,12 @@ defmodule BackendAppFeirinha.UsersFixtures do
     {:ok, user} =
       attrs
       |> Enum.into(%{
-
+        name: "Dickson",
+        password: "1234567",
+        email: "dickson@email.com"
       })
       |> BackendAppFeirinha.Users.create_user()
 
-    user
+    Map.put(user, :password, nil)
   end
 end

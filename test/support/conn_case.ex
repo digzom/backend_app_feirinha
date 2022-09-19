@@ -52,9 +52,9 @@ defmodule BackendAppFeirinhaWeb.ConnCase do
     if tags[:authenticated] do
       {:ok, user} =
         BackendAppFeirinha.Users.create_user(%{
-          name: "Dickson",
+          name: "Test",
           password: "123456",
-          email: "dickson@email.com"
+          email: "test@test.com"
         })
 
       conn =
@@ -65,7 +65,7 @@ defmodule BackendAppFeirinhaWeb.ConnCase do
 
       {:ok, conn: conn, user: user}
     else
-      {:ok, conn: conn, user: nil}
+      {:ok, conn: conn}
     end
   end
 end

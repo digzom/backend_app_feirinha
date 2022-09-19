@@ -10,6 +10,17 @@ defmodule BackendAppFeirinhaWeb.UserView do
     render_one(%{user: user, token: token}, UserView, "user.json")
   end
 
+  def render("show_updated_user.json", %{user: user}) do
+    %{
+      user: %{
+        name: user.name,
+        id: user.id,
+        password_hash: user.password_hash,
+        email: user.email
+      }
+    }
+  end
+
   def render("user.json", %{user: %{user: user, token: token}}) do
     %{
       token: token,

@@ -42,7 +42,7 @@ defmodule BackendAppFeirinhaWeb.UserController do
     user = Users.get_user!(id)
 
     with {:ok, %User{} = user} <- Users.update_user(user, user_params) do
-      render(conn, "show.json", user: user)
+      render(conn, "show_updated_user.json", %{user: user})
     end
   end
 
