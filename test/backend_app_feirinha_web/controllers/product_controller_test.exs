@@ -44,9 +44,16 @@ defmodule BackendAppFeirinhaWeb.ProductControllerTest do
              } = Repo.get(Product, id)
     end
 
+    test "renders 401 error when is unauthenticated", %{conn: conn} do
+      conn = post(conn, Routes.product_path(conn, :create), @create_attrs)
+
+      assert %{resp_body: body} = conn
+      assert body =~ "unauthenticated"
+    end
+
     @tag :authenticated
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.product_path(conn, :create), product: @invalid_attrs)
+      conn = post(conn, Routes.product_path(conn, :create), @invalid_attrs)
       assert json_response(conn, 400)["message"] !== %{}
     end
   end
@@ -67,6 +74,13 @@ defmodule BackendAppFeirinhaWeb.ProductControllerTest do
              } = Repo.get(Product, id)
     end
 
+    test "renders 401 error when is unauthenticated", %{conn: conn, product: product} do
+      conn = put(conn, Routes.product_path(conn, :update, product), @update_attrs)
+
+      assert %{resp_body: body} = conn
+      assert body =~ "unauthenticated"
+    end
+
     @tag :authenticated
     test "renders errors when data is invalid", %{conn: conn, product: product} do
       conn = put(conn, Routes.product_path(conn, :update, product), @invalid_attrs)
@@ -85,6 +99,13 @@ defmodule BackendAppFeirinhaWeb.ProductControllerTest do
       assert response(conn, 204)
 
       assert Repo.get(Product, product.id) == nil
+    end
+
+    test "renders 401 error when is unauthenticated", %{conn: conn, product: product} do
+      conn = delete(conn, Routes.product_path(conn, :update, product))
+
+      assert %{resp_body: body} = conn
+      assert body =~ "unauthenticated"
     end
   end
 
