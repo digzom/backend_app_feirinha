@@ -8,13 +8,11 @@ defmodule BackendAppFeirinhaWeb.FallbackController do
     |> render(:"404")
   end
 
-  def call(conn, {:error, %Ecto.Changeset{}} = error) do
-    IO.inspect(error)
-
+  def call(conn, {:error, %Ecto.Changeset{}} = result) do
     conn
-    |> put_status(:unprocessable_entity)
+    |> put_status(:bad_request)
     |> put_view(BackendAppFeirinhaWeb.ErrorView)
-    |> render(:"422")
+    |> render("400.json", result: result)
   end
 
   def call(conn, {:error, :unauthorized}) do
@@ -23,11 +21,4 @@ defmodule BackendAppFeirinhaWeb.FallbackController do
     |> put_view(BackendAppFeirinhaWeb.ErrorView)
     |> render(:"401")
   end
-
-  # def call(conn, {:error, error})
-  # IO.inspect(error)
-
-  # conn
-  # |> put_status(500)
-  # |> put_view(BackendAppFeirinhaWeb.ErrorView)
 end

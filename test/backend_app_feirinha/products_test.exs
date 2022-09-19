@@ -10,6 +10,7 @@ defmodule BackendAppFeirinha.ProductsTest do
 
     @invalid_attrs %{name: nil, description: nil, category: "Limpeza"}
 
+    @authenticated
     test "list_products/0 returns all products" do
       product = product_fixture()
       assert Products.list_products() == [product]
