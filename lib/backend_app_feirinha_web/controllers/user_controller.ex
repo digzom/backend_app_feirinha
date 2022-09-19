@@ -33,8 +33,7 @@ defmodule BackendAppFeirinhaWeb.UserController do
     end
   end
 
-  def show(conn, %{"id" => id} = params) do
-    IO.inspect(params)
+  def show(conn, %{"id" => id}) do
     user = Users.get_user!(id)
     render(conn, "show.json", user: user)
   end

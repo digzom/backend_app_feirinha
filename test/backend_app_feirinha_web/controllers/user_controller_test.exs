@@ -51,12 +51,6 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
                name: "some updated name"
              } = Repo.get(User, id)
     end
-
-    @tag :authenticated
-    test "renders errors when data is invalid", %{conn: conn, user: user} do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
-    end
   end
 
   describe "delete user" do
@@ -66,10 +60,6 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert response(conn, 204)
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.user_path(conn, :show, user))
-      end
     end
   end
 
