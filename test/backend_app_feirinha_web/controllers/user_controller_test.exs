@@ -47,7 +47,7 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
       conn: conn,
       user: %User{id: id}
     } do
-      conn = put(conn, Routes.user_path(conn, :update, id), %{user: @update_attrs})
+      conn = put(conn, Routes.user_path(conn, :update, id), %{id: nil, user: @update_attrs})
       assert %{"id" => ^id} = json_response(conn, 200)["user"]
 
       assert %User{

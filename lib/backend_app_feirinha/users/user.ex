@@ -26,9 +26,11 @@ defmodule BackendAppFeirinha.Users.User do
 
   def update_user_changeset(user, %{"id" => _id, "user" => user_att}) do
     user
-    |> cast(user_att, [:name, :email])
-    |> unique_constraint(:email)
+    |> cast(user_att, [:name, :email, :password])
+    |> validate_required([:name, :email])
   end
+
+  def update_user_changeset(changeset, _), do: {:error, changeset}
 
   defp encrypt_password(%{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, Argon2.add_hash(password))

@@ -9,9 +9,9 @@ defmodule BackendAppFeirinha.UsersTest do
     import BackendAppFeirinha.UsersFixtures
 
     @valid_attrs %{name: "Dickson", password: "1234567", email: "dicksonmelo@email.com"}
-    @invalid_attrs %{}
+    @invalid_attrs %{name: nil, password: nil, email: nil}
     @invalid_password_length %{name: "Dickson", password: "12345", email: "dicksonmelo@email.com"}
-    @update_attrs %{name: "Sérgio", password: "123456899", email: "dicksonmelo@email.com"}
+    @update_attrs %{name: "Sérgio", password: "123456899", email: "sergio@email.com"}
 
     test "list_users/0 returns all users" do
       user = user_fixture()
@@ -42,12 +42,15 @@ defmodule BackendAppFeirinha.UsersTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
 
-      assert {:ok, %User{}} = Users.update_user(user, @update_attrs)
+      assert {:ok, %User{}} = Users.update_user(user, %{"id" => nil, "user" => @update_attrs})
     end
 
     test "update_user/2 with invalid data returns error changeset" do
       user = user_fixture()
-      assert {:error, %Ecto.Changeset{}} = Users.update_user(user, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Users.update_user(user, %{"user" => @invalid_attrs, "id" => ""})
+
       assert user == Users.get_user!(user.id)
     end
 
