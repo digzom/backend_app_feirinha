@@ -2,7 +2,6 @@ defmodule BackendAppFeirinhaWeb.ListControllerTest do
   use BackendAppFeirinhaWeb.ConnCase
 
   import BackendAppFeirinha.ListsFixtures
-
   alias BackendAppFeirinha.Lists.List
 
   @create_attrs %{
@@ -23,7 +22,7 @@ defmodule BackendAppFeirinhaWeb.ListControllerTest do
   describe "index" do
     test "lists all lists", %{conn: conn} do
       conn = get(conn, Routes.list_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+      assert json_response(conn, 200)[:data] == []
     end
   end
 
@@ -35,36 +34,29 @@ defmodule BackendAppFeirinhaWeb.ListControllerTest do
       create_attrs = Map.put(@create_attrs, :users_id, id)
 
       conn = post(conn, Routes.list_path(conn, :create), name: "lista", users_id: id)
-      # assert %{"id" => id} = json_response(conn, 201)["data"]
-
-      # conn = get(conn, Routes.list_path(conn, :show, id))
-
-      # assert %{
-      #          "id" => "7488a646-e31f-11e4-aace-600308960662",
-      #          "name" => "some name"
-      #        } = json_response(conn, 200)["data"]
     end
 
     @tag :authenticated
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.list_path(conn, :create), list: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
+      assert json_response(conn, 400)["errors"] != %{}
     end
   end
 
+  @tag :authenticated
   describe "update list" do
     setup [:create_list]
 
     test "renders list when data is valid", %{conn: conn, list: %List{id: id} = list} do
       conn = put(conn, Routes.list_path(conn, :update, list), list: @update_attrs)
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+      assert %{"id" => ^id} = json_response(conn, 200)[:data]
 
       conn = get(conn, Routes.list_path(conn, :show, id))
 
       assert %{
                "id" => "7488a646-e31f-11e4-aace-600308960668",
                "name" => "some updated name"
-             } = json_response(conn, 200)["data"]
+             } = json_response(conn, 200)[:data]
     end
 
     test "renders errors when data is invalid", %{conn: conn, list: list} do
@@ -73,6 +65,7 @@ defmodule BackendAppFeirinhaWeb.ListControllerTest do
     end
   end
 
+  @tag :authenticated
   describe "delete list" do
     setup [:create_list]
 

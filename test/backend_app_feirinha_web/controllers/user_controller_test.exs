@@ -19,7 +19,7 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
     email: "some updated email",
     name: "some updated name"
   }
-  @invalid_attrs %{email: nil, id: nil, name: nil, password_hash: nil}
+  @invalid_attrs %{email: nil, name: nil, password_hash: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -35,7 +35,7 @@ defmodule BackendAppFeirinhaWeb.UserControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
+      assert json_response(conn, 400)["errors"] != %{}
     end
   end
 
